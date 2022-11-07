@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "nb2-oneclick"
+version = "0.1.0"
+description = "nb2-oneclick"
+authors = ["student_2333 <lgc2333@126.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+### 基本 ###
+
+# NoneBot 2.0.0b5 不适配 Py 3.11
+python = ">=3.10,<3.11"
+
+# nb 脚手架，虚拟环境要用
+nb-cli = ">=0.6.7"
+
+# 目前商店插件还没全面适配 NoneBot 2.0.0rc1
+nonebot2 = "==2.0.0b5"
+
+
+### 驱动器 ###
+# NB2可用的其他驱动器，需要可自行取消注释
+# 使用 ForwardDriver 时请将 bot.py 中提示的代码注释掉
+
+# ReverseDriver
+# Quart = "^0.17.0"
+
+# ForwardDriver | 仅支持 HTTP | 支持 Mixin
+# httpx = { version = ">=0.20.0, <1.0.0", extras = ["http2"] }
+
+# ForwardDriver | 仅支持 WebSocket | 支持 Mixin
+# websockets = "^10.4"
+
+# ForwardDriver | 支持 Mixin
+# aiohttp = { version = "^3.7.4", extras = ["speedups"] }
+
+
+### 适配器 ###
+# 需要其他平台的适配器可自行取消注释
+# 也需要在 bot.py 里取消对应注释
+
+nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
+# nonebot-adapter-ding = ">=2.0.0a16"    # 钉钉
+# nonebot-adapter-feishu = ">=2.0.0b4"   # 飞书
+# nonebot-adapter-telegram = ">=0.1.0b3" # Telegram
+# nonebot-adapter-qqguild = ">=0.1.1"    # QQ 官方频道 Bot
+# nonebot-adapter-kaiheila = ">=0.1.0"   # 开黑啦（不支持2.0.0b5，请自行修改依赖版本）
+# nonebot-adapter-mirai2 = ">=0.0.17"    # MiraiApiHttp 2.x
+# nonebot-adapter-console = ">=0.2.1"    # 控制台
+# nonebot-adapter-github = ">=0.2.3"     # Github
+# nonebot-adapter-ntchat = ">=0.3.1"     # NtChat 微信（不支持2.0.0b5，请自行修改依赖版本）
+
+[tool.poetry.dev-dependencies]
+
+[tool.nonebot]
+plugins = []
+plugin_dirs = ["src/plugins"]
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
