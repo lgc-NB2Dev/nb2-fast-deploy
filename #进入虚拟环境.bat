@@ -1,1 +1,1 @@
-py -3.10 poetry shell
+py -3.10 -m poetry shell
