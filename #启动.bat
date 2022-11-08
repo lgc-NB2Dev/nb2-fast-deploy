@@ -1,15 +1,15 @@
-:: Coding: GB2312
 @echo off
+chcp 65001
 
 :start
-echo Æô¶¯ NoneBot¡­¡­
+echo å¯åŠ¨ NoneBotâ€¦â€¦
 py -3.10 -m poetry run nb run
 
 echo.
-echo NoneBotÒÑÍ£Ö¹ÔËÐÐ£¡
-echo 10 ÃëºóNoneBot½«ÖØÐÂÔËÐÐ
-echo Èç¹ûÄã²»ÏëÖØÆô£¬ÇëÊÖ¶¯¹Øµô´°¿Ú
-echo Èç¹ûÄãÏëÁ¢¼´ÖØÆô£¬Çë°´ÈÎÒâ¼ü
+echo NoneBotå·²åœæ­¢è¿è¡Œï¼
+echo 10 ç§’åŽNoneBotå°†é‡æ–°è¿è¡Œ
+echo å¦‚æžœä½ ä¸æƒ³é‡å¯ï¼Œè¯·æ‰‹åŠ¨å…³æŽ‰çª—å£
+echo å¦‚æžœä½ æƒ³ç«‹å³é‡å¯ï¼Œè¯·æŒ‰ä»»æ„é”®
 
 timeout /t 10
 goto start
