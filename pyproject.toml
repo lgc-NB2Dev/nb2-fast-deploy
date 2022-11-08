@@ -61,7 +61,7 @@ name = "tsinghua"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 [tool.nonebot]
-plugins = []
+plugins = ["nonebot-plugin-guild-patch"]
 plugin_dirs = ["src/plugins"]
 
 [build-system]
