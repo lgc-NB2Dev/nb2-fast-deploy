@@ -1,8 +1,6 @@
 @echo off
 chcp 65001
 
-goto finish
-
 py -3.10 -V > nul
 if not %errorlevel%==0 (
     echo 你还没有安装 Python 3.10 或你的 Python 3.10 不在 PATH 中，请检查安装
@@ -51,7 +49,6 @@ if not %errorlevel%==0 (
     goto end
 )
 
-:finish
 echo.
 echo 恭喜！执行成功~ 接下来你可以：
 echo.
