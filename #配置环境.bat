@@ -3,71 +3,71 @@ chcp 65001
 
 py -3.10 -V > nul
 if not %errorlevel%==0 (
-    echo ä½ è¿˜æ²¡æœ‰å®‰è£… Python 3.10 æˆ–ä½ çš„ Python 3.10 ä¸åœ¨ PATH ä¸­ï¼Œè¯·æ£€æŸ¥å®‰è£…
+    echo Äã»¹Ã»ÓÐ°²×° Python 3.10 »òÄãµÄ Python 3.10 ²»ÔÚ PATH ÖÐ£¬Çë¼ì²é°²×°
     goto end
 )
 
 set needset=0
-choice /m "æ˜¯å¦æƒ³è¦ä½¿ç”¨æ¸…åŽ pypi é•œåƒæºï¼Ÿï¼ˆY åŒæ„ï¼ŒN æ‹’ç»ï¼‰"
+choice /m "ÊÇ·ñÏëÒªÊ¹ÓÃÇå»ª pypi ¾µÏñÔ´£¿£¨Y Í¬Òâ£¬N ¾Ü¾ø£©"
 if %errorlevel%==1 (
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     echo.
-    echo è¯·æ‰‹åŠ¨æŸ¥çœ‹ pyproject.toml æ–‡ä»¶çš„ç¬¬ 59 è¡Œæ˜¯å¦è¢«æ³¨é‡Š
+    echo ÇëÊÖ¶¯²é¿´ pyproject.toml ÎÄ¼þµÄµÚ 59 ÐÐÊÇ·ñ±»×¢ÊÍ
 ) else (
     pip config unset global.index-url
     echo.
-    echo è¯·æ‰‹åŠ¨æ³¨é‡Š pyproject.toml æ–‡ä»¶çš„ç¬¬ 59 è¡Œ
+    echo ÇëÊÖ¶¯×¢ÊÍ pyproject.toml ÎÄ¼þµÄµÚ 59 ÐÐ
 )
 
 echo.
-echo é»˜è®¤ä¼šå®‰è£… OneBot é€‚é…å™¨ä¸Žé€‚ç”¨äºŽåå‘ ws çš„é©±åŠ¨å™¨
-echo å¯ä»¥ç¼–è¾‘ pyproject.toml æ–‡ä»¶æ¥å®‰è£…å…¶ä»–çš„é€‚é…å™¨å’Œé©±åŠ¨å™¨
-echo å‡†å¤‡å¥½äº†å—ï¼ŸæŒ‰ä¸‹å›žè½¦ç»§ç»­é…ç½®ä¸Žå®‰è£…ä¾èµ–~
+echo Ä¬ÈÏ»á°²×° OneBot ÊÊÅäÆ÷ÓëÊÊÓÃÓÚ·´Ïò ws µÄÇý¶¯Æ÷
+echo ¿ÉÒÔ±à¼­ pyproject.toml ÎÄ¼þÀ´°²×°ÆäËûµÄÊÊÅäÆ÷ºÍÇý¶¯Æ÷
+echo ×¼±¸ºÃÁËÂð£¿°´ÏÂ»Ø³µ¼ÌÐøÅäÖÃÓë°²×°ÒÀÀµ~
 pause > nul
 
 echo.
-echo å®‰è£…Poetryï¼Œè¯·ç¨ç­‰
+echo °²×°Poetry£¬ÇëÉÔµÈ
 py -3.10 -m pip install poetry -U
 if not %errorlevel%==0 (
-    echo å®‰è£… Poetry å¤±è´¥ï¼
+    echo °²×° Poetry Ê§°Ü£¡
     goto end
 )
 
 echo.
-echo å®‰è£…é¡¹ç›®ä¾èµ–ï¼Œè¯·ç¨ç­‰
+echo °²×°ÏîÄ¿ÒÀÀµ£¬ÇëÉÔµÈ
 py -3.10 -m poetry install
 if not %errorlevel%==0 (
-    echo å®‰è£…é¡¹ç›®ä¾èµ–å¤±è´¥ï¼
+    echo °²×°ÏîÄ¿ÒÀÀµÊ§°Ü£¡
     goto end
 )
 
 echo.
-echo æ›´æ–°é¡¹ç›®ä¾èµ–ï¼Œè¯·ç¨ç­‰
+echo ¸üÐÂÏîÄ¿ÒÀÀµ£¬ÇëÉÔµÈ
 py -3.10 -m poetry update
 if not %errorlevel%==0 (
-    echo æ›´æ–°é¡¹ç›®ä¾èµ–å¤±è´¥ï¼
+    echo ¸üÐÂÏîÄ¿ÒÀÀµÊ§°Ü£¡
     goto end
 )
 
 echo.
-echo æ­å–œï¼æ‰§è¡ŒæˆåŠŸ~ æŽ¥ä¸‹æ¥ä½ å¯ä»¥ï¼š
+echo ¹§Ï²£¡Ö´ÐÐ³É¹¦~ ½ÓÏÂÀ´Äã¿ÉÒÔ£º
 echo.
-echo - æ‰“å¼€ .env æ–‡ä»¶æ¥ç¼–è¾‘ä¸€äº›é…ç½®é¡¹ï¼Œæ¯”å¦‚è¶…çº§ç”¨æˆ·ä¸Ž Bot æ˜µç§°ç­‰
-echo - æ‰“å¼€ .env.prod æ–‡ä»¶ç¼–è¾‘ NoneBot ç›‘å¬çš„ IP ä¸Žç«¯å£
-echo - å¦‚æžœä½¿ç”¨äº† ForwardDriverï¼Œè¯·æ³¨é‡Š bot.py çš„ç¬¬ 23 è¡Œ
-echo - å¦‚æžœå®‰è£…äº†å…¶ä»–é€‚é…å™¨ï¼Œè¯·å–æ¶ˆ bot.py å¯¹åº”æ³¨é‡Š
+echo - ´ò¿ª .env ÎÄ¼þÀ´±à¼­Ò»Ð©ÅäÖÃÏî£¬±ÈÈç³¬¼¶ÓÃ»§Óë Bot êÇ³ÆµÈ
+echo - ´ò¿ª .env.prod ÎÄ¼þ±à¼­ NoneBot ¼àÌýµÄ IP Óë¶Ë¿Ú
+echo - Èç¹ûÊ¹ÓÃÁË ForwardDriver£¬Çë×¢ÊÍ bot.py µÄµÚ 23 ÐÐ
+echo - Èç¹û°²×°ÁËÆäËûÊÊÅäÆ÷£¬ÇëÈ¡Ïû bot.py ¶ÔÓ¦×¢ÊÍ
 echo.
-echo å®Œæˆä¸Šé¢è¿™äº›æ“ä½œåŽï¼Œä»¥åŽåªéœ€è¦æ‰“å¼€ #å¯åŠ¨.bat å°±å¯ä»¥å¯åŠ¨ NoneBot å•¦ï¼
-echo å®‰è£…æ’ä»¶ç­‰æ“ä½œå¯ä»¥çœ‹ README.md æ–‡æ¡£ï¼
+echo Íê³ÉÉÏÃæÕâÐ©²Ù×÷ºó£¬ÒÔºóÖ»ÐèÒª´ò¿ª #Æô¶¯.bat ¾Í¿ÉÒÔÆô¶¯ NoneBot À²£¡
+echo °²×°²å¼þµÈ²Ù×÷¿ÉÒÔ¿´ README.md ÎÄµµ£¡
 echo.
-echo æœ¬æ•´åˆå†…åŒ…å«äº†ä¸€ä¸ªæµ‹è¯•éƒ¨ç½²çŠ¶æ€ç”¨çš„ ping æ’ä»¶
-echo è®¾ç½®å¥½è¶…çº§ç”¨æˆ·é…ç½®ä¹‹åŽï¼Œå¯åŠ¨ GoCQ ä¸Ž NoneBot
-echo è¯•è¯•å‘ Bot å‘é€æŒ‡ä»¤ ping ï¼Œå¦‚æžœ Bot å›žå¤äº†å°±ä»£è¡¨é…ç½®æ²¡æœ‰é—®é¢˜å•¦~
-echo æƒ³åˆ æŽ‰è¿™ä¸ªæ’ä»¶çš„è¯ï¼Œåˆ é™¤ src/plugins/ping.py å°±å¯ä»¥äº†
+echo ±¾ÕûºÏÄÚ°üº¬ÁËÒ»¸ö²âÊÔ²¿Êð×´Ì¬ÓÃµÄ ping ²å¼þ
+echo ÉèÖÃºÃ³¬¼¶ÓÃ»§ÅäÖÃÖ®ºó£¬Æô¶¯ GoCQ Óë NoneBot
+echo ÊÔÊÔÏò Bot ·¢ËÍÖ¸Áî ping £¬Èç¹û Bot »Ø¸´ÁË¾Í´ú±íÅäÖÃÃ»ÓÐÎÊÌâÀ²~
+echo ÏëÉ¾µôÕâ¸ö²å¼þµÄ»°£¬É¾³ý src/plugins/ping.py ¾Í¿ÉÒÔÁË
 echo.
-echo ç¥ä½¿ç”¨æ„‰å¿«~
+echo ×£Ê¹ÓÃÓä¿ì~
 echo.
 
 :end
-echo æŒ‰ä»»æ„é”®å…³é—­
+echo °´ÈÎÒâ¼ü¹Ø±Õ
 pause > nul
