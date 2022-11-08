@@ -17,23 +17,8 @@ nb-cli = ">=0.6.7"
 # 目前商店插件还没全面适配 NoneBot 2.0.0rc1
 nonebot2 = "==2.0.0b5"
 
-
-### 驱动器 ###
-# NB2可用的其他驱动器，需要可自行取消注释
-# 使用 ForwardDriver 时请将 bot.py 中提示的代码注释掉
-
-# ReverseDriver
-# Quart = "^0.17.0"
-
-# ForwardDriver | 仅支持 HTTP | 支持 Mixin
-# httpx = { version = ">=0.20.0, <1.0.0", extras = ["http2"] }
-
-# ForwardDriver | 仅支持 WebSocket | 支持 Mixin
-# websockets = "^10.4"
-
-# ForwardDriver | 支持 Mixin
-# aiohttp = { version = "^3.7.4", extras = ["speedups"] }
-
+# QQ频道支持适配补丁，不需要可以注释
+nonebot-plugin-guild-patch = "^0.2.1"
 
 ### 适配器 ###
 # 需要其他平台的适配器可自行取消注释
@@ -50,7 +35,30 @@ nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
 # nonebot-adapter-github = ">=0.2.3"     # Github
 # nonebot-adapter-ntchat = ">=0.3.1"     # NtChat 微信（不支持2.0.0b5，请自行修改依赖版本）
 
+### 驱动器 ###
+# NB2可用的其他驱动器，需要可自行取消注释
+# 使用 ForwardDriver 时请将 bot.py 中提示的代码注释掉
+
+# ReverseDriver
+# Quart = "^0.17.0"
+
+# ForwardDriver | 仅支持 HTTP | 支持 Mixin
+# httpx = { version = ">=0.20.0, <1.0.0", extras = ["http2"] }
+
+# ForwardDriver | 仅支持 WebSocket | 支持 Mixin
+# websockets = "^10.4"
+
+# ForwardDriver | 支持 Mixin
+# aiohttp = { version = "^3.7.4", extras = ["speedups"] }
 [tool.poetry.dev-dependencies]
+
+### 镜像源配置 ###
+[[tool.poetry.source]]
+## 清华源
+# 如不想使用镜像源，请把下面一行前面加 # 注释掉，#配置环境.bat 文件那里也有镜像源设置
+default = true
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 [tool.nonebot]
 plugins = []
