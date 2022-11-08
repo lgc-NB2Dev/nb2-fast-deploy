@@ -42,14 +42,6 @@ if not %errorlevel%==0 (
 )
 
 echo.
-echo 更新项目依赖，请稍等
-py -3.10 -m poetry update
-if not %errorlevel%==0 (
-    echo 更新项目依赖失败！
-    goto end
-)
-
-echo.
 echo 恭喜！执行成功~ 接下来你可以：
 echo.
 echo - 打开 .env 文件来编辑一些配置项，比如超级用户与 Bot 昵称等
