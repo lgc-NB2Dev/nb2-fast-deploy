@@ -413,11 +413,11 @@ reference = "tsinghua"
 
 [[package]]
 name = "nonebot2"
-version = "2.0.0b5"
+version = "2.0.0rc1"
 description = "An asynchronous python bot framework."
 category = "main"
 optional = false
-python-versions = ">=3.7.3,<4.0.0"
+python-versions = ">=3.8,<4.0"
 
 [package.dependencies]
 fastapi = ">=0.79.0,<0.80.0"
@@ -848,7 +848,7 @@ reference = "tsinghua"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<3.11"
-content-hash = "728ebd82e923926dc1bedb31da968fb2abc67c91c6eddc50c52530f7f5f60dd4"
+content-hash = "19ce30880008954a634e2f180a63402a01e0814ccac5e56e2b36f5118d6b1b53"
 
 [metadata.files]
 anyio = [
@@ -1132,8 +1132,8 @@ nonebot-plugin-guild-patch = [
     {file = "nonebot_plugin_guild_patch-0.2.1-py3-none-any.whl", hash = "sha256:6f4c52329940138ddf6e86c373eab83ee26128d2927b566f895fa25009ba218e"},
 ]
 nonebot2 = [
-    {file = "nonebot2-2.0.0b5-py3-none-any.whl", hash = "sha256:5cfbfcd62ffcf55f884f9fb750a71cd92c97e347c99e891ef617da4d445a1f22"},
-    {file = "nonebot2-2.0.0b5.tar.gz", hash = "sha256:fccb5af749cceb289d756901b7abc7a679e5952dbe88c8b6ad8b2d906715c3ee"},
+    {file = "nonebot2-2.0.0rc1-py3-none-any.whl", hash = "sha256:99c70300b9d0755bba6ed50b7399f44f6213e119157bc026b960b3e157a38416"},
+    {file = "nonebot2-2.0.0rc1.tar.gz", hash = "sha256:6e5a0abf24086d05d5c2a56c971a551ece2a343ff29f83b76b398bf717b92e16"},
 ]
 poyo = [
     {file = "poyo-0.5.0-py2.py3-none-any.whl", hash = "sha256:3e2ca8e33fdc3c411cd101ca395668395dd5dc7ac775b8e809e3def9f9fe041a"},
