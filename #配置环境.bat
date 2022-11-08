@@ -1,5 +1,5 @@
+:: GB2312
 @echo off
-chcp 65001
 
 py -3.10 -V > nul
 if not %errorlevel%==0 (
