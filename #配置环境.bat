@@ -1,14 +1,65 @@
+:: Coding: GB2312
 @echo off
 
-chcp 65001
+py -3.10 -V > nul
+if not %errorlevel%==0 (
+    echo Äã»¹Ã»ÓÐ°²×° Python 3.10 »òÄãµÄ Python 3.10 ²»ÔÚ PATH ÖÐ£¬Çë¼ì²é°²×°
+    goto end
+)
 
-:: è®¾ç½®é•œåƒæºï¼Œä¸æƒ³ä½¿ç”¨é•œåƒæºçš„è¯·å°†ä¸‹é¢ä¸€è¡Œå‰é¢åŠ  :: æ³¨é‡ŠæŽ‰ï¼Œpyproject.toml æ–‡ä»¶é‚£é‡Œä¹Ÿæœ‰é•œåƒæºè®¾ç½®
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+set needset=0
+choice /m "ÊÇ·ñÏëÒªÊ¹ÓÃÇå»ª pypi ¾µÏñÔ´£¿£¨Y Í¬Òâ£¬N ¾Ü¾ø£©"
+if %errorlevel%==1 (
+    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    echo.
+    echo ÇëÊÖ¶¯²é¿´ pyproject.toml ÎÄ¼þµÄµÚ 59 ÐÐÊÇ·ñ±»×¢ÊÍ
+) else (
+    pip config unset global.index-url
+    echo.
+    echo ÇëÊÖ¶¯×¢ÊÍ pyproject.toml ÎÄ¼þµÄµÚ 59 ÐÐ
+)
 
-echo å®‰è£…Poetryï¼Œè¯·ç¨ç­‰
+echo.
+echo Ä¬ÈÏ»á°²×° OneBot ÊÊÅäÆ÷ÓëÊÊÓÃÓÚ·´Ïò ws µÄÇý¶¯Æ÷
+echo ¿ÉÒÔ±à¼­ pyproject.toml ÎÄ¼þÀ´°²×°ÆäËûµÄÊÊÅäÆ÷ºÍÇý¶¯Æ÷
+echo ×¼±¸ºÃÁËÂð£¿°´ÏÂ»Ø³µ¼ÌÐøÅäÖÃÓë°²×°ÒÀÀµ~
+pause > nul
+
+echo.
+echo °²×°Poetry£¬ÇëÉÔµÈ
 py -3.10 -m pip install poetry -U
+if not %errorlevel%==0 (
+    echo °²×° Poetry Ê§°Ü£¡
+    goto end
+)
 
-echo å®‰è£…é¡¹ç›®ä¾èµ–ï¼Œè¯·ç¨ç­‰
+echo.
+echo °²×°ÏîÄ¿ÒÀÀµ£¬ÇëÉÔµÈ
 py -3.10 -m poetry install
+if not %errorlevel%==0 (
+    echo °²×°ÏîÄ¿ÒÀÀµÊ§°Ü£¡
+    goto end
+)
 
-pause
+echo.
+echo ¹§Ï²£¡Ö´ÐÐ³É¹¦~ ½ÓÏÂÀ´Äã¿ÉÒÔ£º
+echo.
+echo - ´ò¿ª .env ÎÄ¼þÀ´±à¼­Ò»Ð©ÅäÖÃÏî£¬±ÈÈç³¬¼¶ÓÃ»§Óë Bot êÇ³ÆµÈ
+echo - ´ò¿ª .env.prod ÎÄ¼þ±à¼­ NoneBot ¼àÌýµÄ IP Óë¶Ë¿Ú
+echo - Èç¹ûÊ¹ÓÃÁË ForwardDriver£¬Çë×¢ÊÍ bot.py µÄµÚ 23 ÐÐ
+echo - Èç¹û°²×°ÁËÆäËûÊÊÅäÆ÷£¬ÇëÈ¡Ïû bot.py ¶ÔÓ¦×¢ÊÍ
+echo.
+echo Íê³ÉÉÏÃæÕâÐ©²Ù×÷ºó£¬ÒÔºóÖ»ÐèÒª´ò¿ª #Æô¶¯.bat ¾Í¿ÉÒÔÆô¶¯ NoneBot À²£¡
+echo °²×°²å¼þµÈ²Ù×÷¿ÉÒÔ¿´ README.md ÎÄµµ£¡
+echo.
+echo ±¾ÕûºÏÄÚ°üº¬ÁËÒ»¸ö²âÊÔ²¿Êð×´Ì¬ÓÃµÄ ping ²å¼þ
+echo ÉèÖÃºÃ³¬¼¶ÓÃ»§ÅäÖÃÖ®ºó£¬Æô¶¯ GoCQ Óë NoneBot
+echo ÊÔÊÔÏò Bot ·¢ËÍÖ¸Áî ping £¬Èç¹û Bot »Ø¸´ÁË¾Í´ú±íÅäÖÃÃ»ÓÐÎÊÌâÀ²~
+echo ÏëÉ¾µôÕâ¸ö²å¼þµÄ»°£¬É¾³ý src/plugins/ping.py ¾Í¿ÉÒÔÁË
+echo.
+echo ×£Ê¹ÓÃÓä¿ì~
+echo.
+
+:end
+echo °´ÈÎÒâ¼ü¹Ø±Õ
+pause > nul
