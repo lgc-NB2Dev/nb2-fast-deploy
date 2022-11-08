@@ -1,6 +1,8 @@
 @echo off
 chcp 65001
 
+goto finish
+
 py -3.10 -V > nul
 if not %errorlevel%==0 (
     echo 你还没有安装 Python 3.10 或你的 Python 3.10 不在 PATH 中，请检查安装
@@ -22,9 +24,6 @@ if %errorlevel%==1 (
 echo.
 echo 默认会安装 OneBot 适配器与适用于反向 ws 的驱动器
 echo 可以编辑 pyproject.toml 文件来安装其他的适配器和驱动器
-::
-:: 傻逼微软不认utf8编码
-::
 echo 准备好了吗？按下回车继续配置与安装依赖~
 pause > nul
 
@@ -52,6 +51,7 @@ if not %errorlevel%==0 (
     goto end
 )
 
+:finish
 echo.
 echo 恭喜！执行成功~ 接下来你可以：
 echo.
