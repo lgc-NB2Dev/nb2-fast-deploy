@@ -26,15 +26,15 @@ echo 准备好了吗？按下回车继续配置与安装依赖~
 pause > nul
 
 echo.
-echo 安装Poetry，请稍等
-py -3.10 -m pip install poetry -U
+echo 全局安装 Poetry 与 nb-cli，请稍等
+py -3.10 -m pip install poetry nb-cli -U
 if not %errorlevel%==0 (
-    echo 安装 Poetry 失败！
+    echo 安装 Poetry 与 nb-cli 失败！
     goto end
 )
 
 echo.
-echo 安装项目依赖，请稍等
+echo 创建虚拟环境、安装项目依赖，请稍等
 py -3.10 -m poetry install
 if not %errorlevel%==0 (
     echo 安装项目依赖失败！
