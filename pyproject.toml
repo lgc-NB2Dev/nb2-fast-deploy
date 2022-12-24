@@ -8,14 +8,15 @@ readme = "README.md"
 [tool.poetry.dependencies]
 ### 基本 ###
 
-# NoneBot 2.0.0b5 不适配 Py 3.11
-python = ">=3.10,<3.11"
+# 有的商店插件只能适配 Py 3.10 以上
+python = ">=3.10,<4.0.0"
 
 # nb 脚手架，虚拟环境和全局都要安装，不然会出问题
 nb-cli = ">=0.6.7"
 
-# 目前商店插件还没全面适配 NoneBot 2.0.0rc1
-nonebot2 = "==2.0.0b5"
+# 商店插件应该能适配 NoneBot 2.0.0rc1 以上了 (#1498)
+# https://github.com/nonebot/nonebot2/issues/1498
+nonebot2 = ">=2.0.0rc1"
 
 # QQ频道支持适配补丁，不需要可以注释
 nonebot-plugin-guild-patch = "^0.2.1"
