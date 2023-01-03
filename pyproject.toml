@@ -19,7 +19,7 @@ nb-cli = ">=0.6.7"
 nonebot2 = ">=2.0.0rc1"
 
 # QQ频道支持适配补丁，不需要可以注释
-nonebot-plugin-guild-patch = "^0.2.1"
+nonebot-plugin-guild-patch = "^0.2.2"
 
 ### 适配器 ###
 # 需要其他平台的适配器可自行取消注释
