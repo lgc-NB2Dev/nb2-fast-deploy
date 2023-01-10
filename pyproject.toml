@@ -6,6 +6,7 @@ authors = ["student_2333 <lgc2333@126.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
+
 ### 基本 ###
 
 # 有的商店插件只能适配 Py 3.10 以上
@@ -41,6 +42,11 @@ nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
 # 使用 ForwardDriver 时请将 bot.py 中提示的代码注释掉
 
 # ReverseDriver
+# nb2 默认驱动器
+# 由于该依赖 0.89.0 版不兼容 nb rc2 以上版本所以特地在这里声明版本
+fastapi = ">=0.87.0,<0.89.0"
+
+# ReverseDriver
 # Quart = "^0.17.0"
 
 # ForwardDriver | 仅支持 HTTP | 支持 Mixin
@@ -51,6 +57,7 @@ nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
 
 # ForwardDriver | 支持 Mixin
 # aiohttp = { version = "^3.7.4", extras = ["speedups"] }
+
 [tool.poetry.dev-dependencies]
 
 ### 镜像源配置 ###
