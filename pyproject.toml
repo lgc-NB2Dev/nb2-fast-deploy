@@ -44,7 +44,7 @@ nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
 # ReverseDriver
 # nb2 默认驱动器
 # 由于该依赖 0.89.0 版不兼容 nb rc2 以上版本所以特地在这里声明版本
-fastapi = ">=0.87.0,<0.89.0"
+fastapi = ">=0.87.0,<0.90.0"
 
 # ReverseDriver
 # Quart = "^0.17.0"
