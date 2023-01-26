@@ -3,7 +3,7 @@
 
 import nonebot
 
-# 自定义 Logger
+### 自定义 Logger ###
 #
 # from nonebot.log import logger, default_format
 #
@@ -19,6 +19,7 @@ nonebot.init(
 )
 
 driver = nonebot.get_driver()
+
 
 ### 注册 Adapter ###
 # 有需要请自行取消注释
@@ -69,7 +70,8 @@ driver.register_adapter(ONEBOT_V11Adapter)
 # driver.register_adapter(NTChatAdapter)
 
 
-# 如果出现插件require报错，请在这里加上load_plugin代码使被require的插件先加载
+# 如果出现插件 require 报错，且报错字样为 module xxx is not loaded as a plugin
+# 请在这里加上 load_plugin 代码使被 require 的插件先加载
 nonebot.load_plugin("nonebot_plugin_apscheduler")
 nonebot.load_plugin("nonebot_plugin_htmlrender")
 nonebot.load_plugin("nonebot_plugin_imageutils")

@@ -25,7 +25,7 @@ nonebot-plugin-apscheduler = ">=0.2.0"
 # 网页渲染插件，一般为其他插件前置，不需要可以注释
 nonebot-plugin-htmlrender = ">=0.2.0.1"
 
-# 图片生成辅助操作，一般为其他插件前置，不需要可以注释
+# 图片生成辅助操作库，一般为其他插件前置，不需要可以注释
 nonebot-plugin-imageutils = ">=0.1.13.5"
 
 ### 适配器 ###
