@@ -5,8 +5,8 @@ description = "nb2-oneclick"
 authors = ["student_2333 <lgc2333@126.com>"]
 readme = "README.md"
 
-### 基本依赖 ###
 [tool.poetry.dependencies]
+### 基本依赖 ###
 
 # 有的商店插件只能适配 Py 3.10 以上
 python = ">=3.10,<4.0.0"
@@ -14,8 +14,19 @@ python = ">=3.10,<4.0.0"
 # nb 脚手架，虚拟环境和全局都要安装，不然会出问题
 nb-cli = ">=0.6.7"
 
+### 额外插件 ###
+
 # QQ频道支持适配补丁，不需要可以注释
 nonebot-plugin-guild-patch = ">=0.2.2"
+
+# 定时任务插件，一般为其他插件前置，不需要可以注释
+nonebot-plugin-apscheduler = ">=0.2.0"
+
+# 网页渲染插件，一般为其他插件前置，不需要可以注释
+nonebot-plugin-htmlrender = ">=0.2.0.1"
+
+# 图片生成辅助操作，一般为其他插件前置，不需要可以注释
+nonebot-plugin-imageutils = ">=0.1.13.5"
 
 ### 适配器 ###
 # 需要其他平台的适配器可自行取消注释
@@ -32,8 +43,8 @@ nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
 # nonebot-adapter-github = ">=0.2.3"     # Github
 # nonebot-adapter-ntchat = ">=0.3.1"     # NtChat 微信（不支持2.0.0b5，请自行修改依赖版本）
 
-### NB2 本体及驱动器 ###
 [tool.poetry.dependencies.nonebot2]
+### NB2 本体及驱动器 ###
 
 # 商店插件已经可以适配 NoneBot 2.0.0rc1 以上了 (#1498)
 # https://github.com/nonebot/nonebot2/issues/1498
@@ -70,7 +81,7 @@ name = "tsinghua"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 [tool.nonebot]
-plugins = ["nonebot_plugin_guild_patch"]
+plugins = []
 plugin_dirs = ["src/plugins"]
 
 [build-system]

@@ -18,15 +18,10 @@ nonebot.init(
     # var1=True
 )
 
-
-# !!! 如果使用 ForwardDriver，请将下面一行前面加 # 注释掉 !!!
-app = nonebot.get_asgi()
-
+driver = nonebot.get_driver()
 
 ### 注册 Adapter ###
 # 有需要请自行取消注释
-
-driver = nonebot.get_driver()
 
 ## OneBot V11
 from nonebot.adapters.onebot.v11 import Adapter as ONEBOT_V11Adapter
@@ -75,7 +70,10 @@ driver.register_adapter(ONEBOT_V11Adapter)
 
 
 # 如果出现插件require报错，请在这里加上load_plugin代码使被require的插件先加载
-# nonebot.load_plugin("nonebot_plugin_apscheduler")
+nonebot.load_plugin("nonebot_plugin_apscheduler")
+nonebot.load_plugin("nonebot_plugin_htmlrender")
+nonebot.load_plugin("nonebot_plugin_imageutils")
+nonebot.load_plugin("nonebot_plugin_guild_patch")
 
 
 # 如果你不知道你在干什么，请不要动此文件
@@ -91,5 +89,4 @@ nonebot.load_from_toml("pyproject.toml")
 
 
 if __name__ == "__main__":
-    nonebot.logger.warning("请使用 `nb run` 来启动 Bot 而不是直接运行此 Py 文件！")
-    nonebot.run(app="__mp_main__:app")
+    nonebot.run()
