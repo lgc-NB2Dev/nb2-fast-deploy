@@ -3,11 +3,11 @@
 from nonebot import on_command
 from nonebot.permission import SUPERUSER
 from nonebot.matcher import Matcher
-from nonebot.internal.adapter import MessageEvent
+from nonebot.internal.adapter import Event
 
 h_ping = on_command("ping", aliases={"Ping", "PING"}, permission=SUPERUSER)
 
 
 @h_ping.handle()
-async def _(matcher: Matcher, _: MessageEvent):
+async def _(matcher: Matcher, _: Event):
     await matcher.finish("Pong~")
