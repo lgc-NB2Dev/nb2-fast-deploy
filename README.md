@@ -6,7 +6,7 @@
 
 ## 如何使用
 
-[视频介绍](https://www.bilibili.com/video/BV11P411F7XM/)
+### [点这里 -----> \[视频介绍\] <----- 点这里](https://www.bilibili.com/video/BV11P411F7XM/)
 
 运行 `#配置环境.bat` ，按照指引即可
 
