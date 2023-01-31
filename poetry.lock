@@ -416,25 +416,24 @@ reference = "tsinghua"
 
 [[package]]
 name = "cookiecutter"
-version = "1.7.3"
+version = "2.1.1"
 description = "A command-line utility that creates projects from project templates, e.g. creating a Python package project from a Python package project template."
 category = "main"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+python-versions = ">=3.7"
 files = [
-    {file = "cookiecutter-1.7.3-py2.py3-none-any.whl", hash = "sha256:f8671531fa96ab14339d0c59b4f662a4f12a2ecacd94a0f70a3500843da588e2"},
-    {file = "cookiecutter-1.7.3.tar.gz", hash = "sha256:6b9a4d72882e243be077a7397d0f1f76fe66cf3df91f3115dbb5330e214fa457"},
+    {file = "cookiecutter-2.1.1-py2.py3-none-any.whl", hash = "sha256:9f3ab027cec4f70916e28f03470bdb41e637a3ad354b4d65c765d93aad160022"},
+    {file = "cookiecutter-2.1.1.tar.gz", hash = "sha256:f3982be8d9c53dac1261864013fdec7f83afd2e42ede6f6dd069c5e149c540d5"},
 ]
 
 [package.dependencies]
 binaryornot = ">=0.4.4"
-click = ">=7.0"
+click = ">=7.0,<9.0.0"
 Jinja2 = ">=2.7,<4.0.0"
 jinja2-time = ">=0.2.0"
-poyo = ">=0.5.0"
 python-slugify = ">=4.0.0"
+pyyaml = ">=5.3.1"
 requests = ">=2.23.0"
-six = ">=1.10"
 
 [package.source]
 type = "legacy"
@@ -1243,21 +1242,21 @@ reference = "tsinghua"
 
 [[package]]
 name = "nb-cli"
-version = "1.0.2"
+version = "1.0.3"
 description = "CLI for nonebot2"
 category = "main"
 optional = false
 python-versions = ">=3.8, <4.0"
 files = [
-    {file = "nb-cli-1.0.2.tar.gz", hash = "sha256:f0abfcac8158e921a9eb5646cc388283696648bfee2aa989a010f67a82ff528b"},
-    {file = "nb_cli-1.0.2-py3-none-any.whl", hash = "sha256:3188d714cacd4dd9d86a78685f5447313281838cd0f6e7cf59298f743e96f0b1"},
+    {file = "nb-cli-1.0.3.tar.gz", hash = "sha256:9f33d2f9869dfb73b779c09a7d5feb5b2b5bdd1493aaabbba6842ce315b55a51"},
+    {file = "nb_cli-1.0.3-py3-none-any.whl", hash = "sha256:9390da443de5856b5eefc83e2a7a607c6e5b6a38129b9af6f3f75ed4cf571614"},
 ]
 
 [package.dependencies]
 anyio = ">=3.6,<4.0"
 cashews = ">=5.0,<6.0"
 click = ">=8.0,<9.0"
-cookiecutter = ">=1.7.2,<1.8.0"
+cookiecutter = ">=2.1,<3.0"
 httpx = ">=0.18,<1.0"
 jinja2 = ">=3.0,<4.0"
 noneprompt = ">=0.1.7,<1.0.0"
@@ -1675,23 +1674,6 @@ files = [
 [package.dependencies]
 greenlet = "2.0.1"
 pyee = "9.0.4"
-
-[package.source]
-type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
-reference = "tsinghua"
-
-[[package]]
-name = "poyo"
-version = "0.5.0"
-description = "A lightweight YAML Parser for Python. 🐓"
-category = "main"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-files = [
-    {file = "poyo-0.5.0-py2.py3-none-any.whl", hash = "sha256:3e2ca8e33fdc3c411cd101ca395668395dd5dc7ac775b8e809e3def9f9fe041a"},
-    {file = "poyo-0.5.0.tar.gz", hash = "sha256:e26956aa780c45f011ca9886f044590e2d8fd8b61db7b1c1cf4e0869f48ed4dd"},
-]
 
 [package.source]
 type = "legacy"
@@ -2670,4 +2652,4 @@ reference = "tsinghua"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0.0"
-content-hash = "6d74792c74e369cff5dc7ae4a463937756511361f58167d13db295894af22594"
+content-hash = "ea587a550b3a80b2b198eb9c1fac44f2a935966c95bce93c99c435415f063ea8"
