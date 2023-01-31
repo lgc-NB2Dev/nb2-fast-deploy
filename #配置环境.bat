@@ -46,7 +46,6 @@ echo 恭喜！执行成功~ 接下来你可以：
 echo.
 echo - 打开 .env 文件来编辑一些配置项，比如超级用户与 Bot 昵称等
 echo - 打开 .env.prod 文件编辑 NoneBot 监听的 IP 与端口
-echo - 如果使用了 ForwardDriver，请注释 bot.py 的第 23 行
 echo - 如果安装了其他适配器，请取消 bot.py 对应注释
 echo.
 echo 完成上面这些操作后，以后只需要打开 #启动.bat 就可以启动 NoneBot 啦！
