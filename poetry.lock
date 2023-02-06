@@ -1338,25 +1338,25 @@ reference = "tsinghua"
 
 [[package]]
 name = "nonebot-plugin-htmlrender"
-version = "0.2.0.1"
+version = "0.2.0.3"
 description = "通过浏览器渲染图片"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "nonebot-plugin-htmlrender-0.2.0.1.tar.gz", hash = "sha256:a6eb0b22dc66040c215cf60961bc1aec3d1670a4ba70a40b3c0590718a9525ba"},
-    {file = "nonebot_plugin_htmlrender-0.2.0.1-py3-none-any.whl", hash = "sha256:ba3d03688c1b680bc44e87aa60f5adcf5bab0421458a31ed7a3aa7cfd8fca42b"},
+    {file = "nonebot_plugin_htmlrender-0.2.0.3-py3-none-any.whl", hash = "sha256:2a45d811513bd03dfe6825f6229f50f1e65a390d4ae9c5413184d6de42147147"},
+    {file = "nonebot_plugin_htmlrender-0.2.0.3.tar.gz", hash = "sha256:d7e0432ebb78abbc7d934141902722d36334ef12921f640da4c90dedb62452fb"},
 ]
 
 [package.dependencies]
-aiofiles = ">=0.8.0,<0.9.0"
-jinja2 = ">=3.0.3,<4.0.0"
-markdown = ">=3.3.6,<4.0.0"
-nonebot2 = ">=2.0.0-beta.1,<3.0.0"
-playwright = ">=1.17.2,<2.0.0"
-Pygments = ">=2.10.0,<3.0.0"
-pymdown-extensions = ">=9.1,<10.0"
-python-markdown-math = ">=0.8,<0.9"
+aiofiles = ">=0.8.0"
+jinja2 = ">=3.0.3"
+markdown = ">=3.3.6"
+nonebot2 = ">=2.0.0-beta.1"
+playwright = ">=1.17.2"
+Pygments = ">=2.10.0"
+pymdown-extensions = ">=9.1"
+python-markdown-math = ">=0.8"
 
 [package.source]
 type = "legacy"
