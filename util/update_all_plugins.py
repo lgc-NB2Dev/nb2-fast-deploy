@@ -14,10 +14,19 @@ def update(name: str) -> bool:
         encoding="u8",
     )
 
+    out = proc.stdout
     ok = proc.returncode == 0
-    print(f"更新插件 {name} {'成功' if ok else '失败！！'}")
+    updated = "Successfully installed " in out
 
-    if not ok:
+    if ok:
+        if not updated:
+            print(f"插件 {name} 已经是最新版本了")
+        else:
+            index = out.rfind(name) + len(name) + 1
+            ver = out[index : out.find(" ", index)]
+            print(f"插件 {name} 已更新到版本 {ver}")
+    else:
+        print(f"更新插件 {name} 失败！！")
         print(proc.stderr)
 
     return ok

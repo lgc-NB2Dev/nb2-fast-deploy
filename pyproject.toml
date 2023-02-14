@@ -81,7 +81,7 @@ name = "tsinghua"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 [tool.nonebot]
-plugins = ["nonebot_plugin_imageutils"]
+plugins = []
 plugin_dirs = ["src/plugins"]
 
 [build-system]
