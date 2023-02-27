@@ -1,6 +1,5 @@
-from pathlib import Path
 import subprocess
-from typing import List
+from pathlib import Path
 
 from tomlkit import parse
 
@@ -16,14 +15,16 @@ def update(name: str) -> bool:
 
     out = proc.stdout
     ok = proc.returncode == 0
-    updated = "Successfully installed " in out
+
+    ver = None
+    if "Successfully installed " in out:
+        index = out.rfind(name) + len(name) + 1
+        ver = out[index : out.find(" ", index)]
 
     if ok:
-        if not updated:
+        if not ver:
             print(f"插件 {name} 已经是最新版本了")
         else:
-            index = out.rfind(name) + len(name) + 1
-            ver = out[index : out.find(" ", index)]
             print(f"插件 {name} 已更新到版本 {ver}")
     else:
         print(f"更新插件 {name} 失败！！")
@@ -34,7 +35,9 @@ def update(name: str) -> bool:
 
 def main():
     pyproject = parse((Path.cwd() / "pyproject.toml").read_text(encoding="u8"))
-    plugins: List[str] = pyproject["tool"]["nonebot"]["plugins"]  # type: ignore
+    plugins = set()
+    plugins.update(pyproject["tool"]["nonebot"]["oneclick"]["preload_plugins"])  # type: ignore
+    plugins.update(pyproject["tool"]["nonebot"]["plugins"])  # type: ignore
 
     if not plugins:
         print("你还没有安装过商店插件，没有需要更新的插件")

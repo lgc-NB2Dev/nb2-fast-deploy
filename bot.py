@@ -38,17 +38,18 @@ for adapter in pyproject["tool"]["nonebot"]["adapters"]:  # type: ignore
 
 # 在加载其他插件之前加载前置插件
 # 详见 pyproject.toml [tool.nonebot-one-click] 项的注释
-for p in pyproject["tool"]["nonebot"]["oneclick"]["preload_plugins"]:  # type: ignore
+preload_plugins: list[str] = pyproject["tool"]["nonebot"]["oneclick"]["preload_plugins"]  # type: ignore
+for p in preload_plugins:
     nonebot.load_plugin(p)
 
 
 # 如果你不知道你在干什么，请不要动此文件
 # 你可以 使用nb脚手架 或者 修改`pyproject.toml` 来加载插件
 # 下面的几行代码会自动加载 pyproject.toml [tool.nonebot] 项里的插件和插件目录
-nonebot.load_all_plugins(
-    set(pyproject["tool"]["nonebot"]["plugins"]),  # type: ignore
-    set(pyproject["tool"]["nonebot"]["plugin_dirs"]),  # type: ignore
-)
+plugins = set(pyproject["tool"]["nonebot"]["plugins"])  # type: ignore
+plugin_dirs = set(pyproject["tool"]["nonebot"]["plugin_dirs"])  # type: ignore
+plugins.difference_update(preload_plugins)
+nonebot.load_all_plugins(plugins, plugin_dirs)
 
 
 # 在已加载配置的基础上修改配置
