@@ -30,18 +30,20 @@ nonebot-plugin-imageutils = ">=0.1.13.5"
 
 ### 适配器 ###
 # 需要其他平台的适配器可自行取消注释
-# 也需要在 bot.py 里取消对应注释
+# 也需要在下方取消对应注释
 
 nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
 # nonebot-adapter-ding = ">=2.0.0a16"    # 钉钉
 # nonebot-adapter-feishu = ">=2.0.0b4"   # 飞书
 # nonebot-adapter-telegram = ">=0.1.0b3" # Telegram
 # nonebot-adapter-qqguild = ">=0.1.1"    # QQ 官方频道 Bot
-# nonebot-adapter-kaiheila = ">=0.1.0"   # 开黑啦（不支持2.0.0b5，请自行修改依赖版本）
+# nonebot-adapter-kaiheila = ">=0.1.0"   # 开黑啦
 # nonebot-adapter-mirai2 = ">=0.0.17"    # MiraiApiHttp 2.x
 # nonebot-adapter-console = ">=0.2.1"    # 控制台
 # nonebot-adapter-github = ">=0.2.3"     # Github
-# nonebot-adapter-ntchat = ">=0.3.1"     # NtChat 微信（不支持2.0.0b5，请自行修改依赖版本）
+# nonebot-adapter-ntchat = ">=0.3.1"     # NtChat 微信
+# nonebot-adapter-spigot = ">=0.0.4"     # Spigot
+# nonebot-adapter-bilibili = ">=0.0.6"   # B 站直播间
 
 [tool.poetry.dependencies.nonebot2]
 ### NB2 本体及驱动器 ###
@@ -51,7 +53,6 @@ nonebot-adapter-onebot = ">=2.1.5" # OneBot V11 & V12
 version = ">=2.0.0rc1"
 
 # NB2可用的其他驱动器，需要可自行取消注释
-# 使用 ForwardDriver 时请将 bot.py 中提示的代码注释掉
 extras = [
     # ReverseDriver（nb2 默认驱动器）
     "fastapi",
@@ -81,8 +82,37 @@ name = "tsinghua"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 [tool.nonebot]
+# 要加载的适配器
+# 如果需要其他适配器，请在上方取消对应依赖的注释
+adapters = [
+    { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
+    # { name = "钉钉", module_name = "nonebot.adapters.ding" },
+    # { name = "飞书", module_name = "nonebot.adapters.feishu" },
+    # { name = "Telegram", module_name = "nonebot.adapters.telegram" },
+    # { name = "QQ 频道", module_name = "nonebot.adapters.qqguild" },
+    # { name = "开黑啦", module_name = "nonebot.adapters.kaiheila" },
+    # { name = "mirai2", module_name = "nonebot.adapters.mirai2" },
+    # { name = "OneBot V12", module_name = "nonebot.adapters.onebot.v12" },
+    # { name = "Console", module_name = "nonebot.adapters.console" },
+    # { name = "GitHub", module_name = "nonebot.adapters.github" },
+    # { name = "Ntchat", module_name = "nonebot.adapters.ntchat" },
+    # { name = "Spigot", module_name = "nonebot.adapters.spigot" },
+    # { name = "BilibiliLive", module_name = "nonebot.adapters.bilibili" },
+]
+# 要加载的插件
 plugins = []
+# 要加载的插件文件夹
 plugin_dirs = ["src/plugins"]
+
+[tool.nonebot.oneclick]
+# 如果出现插件 require 报错，且报错字样为 module xxx is not loaded as a plugin
+# 请在这里加上 插件包名 使被 require 的插件先加载
+preload_plugins = [
+    "nonebot_plugin_apscheduler",
+    "nonebot_plugin_guild_patch",
+    "nonebot_plugin_imageutils",
+    "nonebot_plugin_htmlrender",
+]
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]

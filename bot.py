@@ -1,87 +1,54 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import nonebot
+from pathlib import Path
 
-### 自定义 Logger ###
+import nonebot
+from tomlkit import parse
+
+# 自定义 Logger
+# 这里示范添加一个每日 0 点重新生成的 error.log 日志
 #
 # from nonebot.log import logger, default_format
 #
-# 添加一个每日0点重新生成的error.log日志
 # logger.add(
-#     "error.log", rotation="00:00", diagnose=False, level="ERROR", format=default_format
+#     "error.log",
+#     rotation="00:00",
+#     diagnose=False,
+#     level="ERROR",
+#     format=default_format
 # )
 
 
-# 可以在init函数中添加.env环境变量，优先级高于.env
+# 可以在init函数中添加 .env 配置，优先级高于 .env
 nonebot.init(
     # var1=True
 )
 
+
+pyproject = parse((Path(__file__).parent / "pyproject.toml").read_text(encoding="u8"))
+
+# 根据 pyproject.toml 注册 Adapter
+import importlib
+
 driver = nonebot.get_driver()
+for adapter in pyproject["tool"]["nonebot"]["adapters"]:  # type: ignore
+    driver.register_adapter(importlib.import_module(adapter["module_name"]).Adapter)
 
 
-### 注册 Adapter ###
-# 有需要请自行取消注释
-
-## OneBot V11
-from nonebot.adapters.onebot.v11 import Adapter as ONEBOT_V11Adapter
-
-driver.register_adapter(ONEBOT_V11Adapter)
-
-## OneBot V12
-# from nonebot.adapters.onebot.v12 import Adapter as ONEBOT_V12Adapter
-# driver.register_adapter(ONEBOT_V12Adapter)
-
-## 钉钉
-# from nonebot.adapters.ding import Adapter as DingAdapter
-# driver.register_adapter(DingAdapter)
-
-## 飞书
-# from nonebot.adapters.feishu import Adapter as FeiShuAdapter
-# driver.register_adapter(FeiShuAdapter)
-
-## Telegram
-# from nonebot.adapters.telegram import Adapter as TGAdapter
-# driver.register_adapter(TGAdapter)
-
-## QQ 官方频道 Bot
-# from nonebot.adapters.qqguild import Adapter as QQGuildAdapter
-# driver.register_adapter(QQGuildAdapter)
-
-## 开黑啦（不支持2.0.0b5）
-# from nonebot.adapters.kaiheila import Adapter as KaiHeiLaAdapter
-# driver.register_adapter(KaiHeiLaAdapter)
-
-## MiraiApiHttp 2.x
-# from nonebot.adapters.mirai2 import Adapter as MiraiAdapter
-# driver.register_adapter(MiraiAdapter)
-
-## 控制台
-# from nonebot.adapters.console import Adapter as ConsoleAdapter
-# driver.register_adapter(ConsoleAdapter)
-
-## Github
-# from nonebot.adapters.github import Adapter as GithubAdapter
-# driver.register_adapter(GithubAdapter)
-
-## NtChat 微信（不支持2.0.0b5）
-# from nonebot.adapters.ntchat import Adapter as NTChatAdapter
-# driver.register_adapter(NTChatAdapter)
-
-
-# 如果出现插件 require 报错，且报错字样为 module xxx is not loaded as a plugin
-# 请在这里加上 load_plugin 代码使被 require 的插件先加载
-nonebot.load_plugin("nonebot_plugin_apscheduler")
-nonebot.load_plugin("nonebot_plugin_htmlrender")
-nonebot.load_plugin("nonebot_plugin_imageutils")
-nonebot.load_plugin("nonebot_plugin_guild_patch")
+# 在加载其他插件之前加载前置插件
+# 详见 pyproject.toml [tool.nonebot-one-click] 项的注释
+for p in pyproject["tool"]["nonebot"]["oneclick"]["preload_plugins"]:  # type: ignore
+    nonebot.load_plugin(p)
 
 
 # 如果你不知道你在干什么，请不要动此文件
 # 你可以 使用nb脚手架 或者 修改`pyproject.toml` 来加载插件
-# 下面的一行代码会自动加载 pyproject.toml [tool.nonebot] 项里的插件和插件目录
-nonebot.load_from_toml("pyproject.toml")
+# 下面的几行代码会自动加载 pyproject.toml [tool.nonebot] 项里的插件和插件目录
+nonebot.load_all_plugins(
+    set(pyproject["tool"]["nonebot"]["plugins"]),  # type: ignore
+    set(pyproject["tool"]["nonebot"]["plugin_dirs"]),  # type: ignore
+)
 
 
 # 在已加载配置的基础上修改配置

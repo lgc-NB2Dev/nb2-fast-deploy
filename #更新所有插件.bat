@@ -1,4 +1,4 @@
 :: GB2312
 
-poetry run py util/update_all_plugins.py
+poetry run py src/util/update_all_plugins.py
 pause
