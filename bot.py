@@ -37,7 +37,7 @@ for adapter in pyproject["tool"]["nonebot"]["adapters"]:  # type: ignore
 
 
 # 在加载其他插件之前加载前置插件
-# 详见 pyproject.toml [tool.nonebot-one-click] 项的注释
+# 详见 pyproject.toml [tool.nonebot.oneclick] 项的注释
 preload_plugins: list[str] = pyproject["tool"]["nonebot"]["oneclick"]["preload_plugins"]  # type: ignore
 for p in preload_plugins:
     nonebot.load_plugin(p)
