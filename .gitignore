@@ -144,3 +144,4 @@ poetry.lock
 
 .vscode/
 .idea/
+test/
