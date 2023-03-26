@@ -3,7 +3,7 @@ import platform
 import subprocess
 
 
-is_win = platform.system()
+is_win = "Windows" in platform.system()
 timeout_cmd = "timeout /t 10" if is_win else "read -t 10"
 
 
@@ -11,7 +11,7 @@ def main():
     while True:
         print("启动 NoneBot ...\n")
 
-        proc = subprocess.run("pdm run nb run")
+        proc = subprocess.run(["pdm", "run", "nb", "run"])
 
         if not proc.returncode:
             return

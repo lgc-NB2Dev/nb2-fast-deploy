@@ -18,12 +18,12 @@ PYPI_MIRRORS: List[Tuple[str, str]] = [
 
 HEADER = "欢迎使用 NoneBot2 一键包配置向导\n按下 Ctrl+C 退出\n"
 
-is_win = platform.system()
+is_win = "Windows" in platform.system()
 clear_cmd = "cls" if is_win else "clear"
 use_sudo = False
 no_clear = False
 pypi_mirror = PYPI_MIRROR_KEEP
-python_path = ""
+python_path = "python3"
 
 T = TypeVar("T")
 
@@ -130,12 +130,15 @@ def install_pre_reqs() -> int:
 
 def configure_proj() -> int:
     # 如果有更好的方法欢迎提供
+    venv_path = os.path.abspath(
+        ".venv/Scripts/python.exe" if is_win else ".venv/bin/python"
+    )
     cmd = [
         "pdm config -l python.use_venv True",
         "pdm config -l venv.in_project True",
         f'pdm use "{python_path}"',
-        "pdm venv create",
-        f'pdm use "{os.path.abspath(".venv/Scripts/python.exe")}"',
+        "pdm venv create --force",
+        f'pdm use "{venv_path}"',
         "pdm install --no-self",
     ]
 
