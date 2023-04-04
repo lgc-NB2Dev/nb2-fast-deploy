@@ -73,12 +73,12 @@ def select(list: List[T]) -> T:
 def get_win_python_path() -> str:
     env_path = os.environ["PATH"].split(";")
 
-    founded = []
+    founded: List[str] = []
     for p in env_path:
         p = os.path.join(p, "python.exe")
         if os.path.exists(p):
             founded.append(p)
-    founded = list(set(founded))
+    founded = [x for x in set(founded) if "WindowsApps" not in x]
     founded.sort()
 
     if len(founded) == 1:
@@ -87,7 +87,7 @@ def get_win_python_path() -> str:
     print("你想要使用哪个 Python ？")
     for i, p in enumerate(founded):
         print(f"{i+1}. {p}")
-    return select(founded)
+    return f'"{select(founded)}"'
 
 
 def input_pypi_mirror() -> str:
