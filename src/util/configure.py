@@ -1,10 +1,10 @@
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import traceback
-from typing import Callable, List, Optional, Tuple, TypeVar
+from pathlib import Path
+from typing import Callable, List, Optional, Tuple, TypeVar, Union
 
 from const import CLEAR_CMD, IS_WIN
 
@@ -158,6 +158,16 @@ def install_pre_reqs() -> int:
     return system([python_path, "-m", "pip", "install", "pip", "pdm", "nb-cli", "-U"])
 
 
+def del_path(*path: Union[Path, str]):
+    pathes = (x if isinstance(x, Path) else Path(x) for x in path)
+    for f in pathes:
+        if f.exists():
+            if f.is_dir():
+                shutil.rmtree(f)
+            else:
+                f.unlink()
+
+
 def configure_proj() -> int:
     # 如果有更好的方法欢迎提供
     venv_path = os.path.abspath(
@@ -239,7 +249,7 @@ def get_input(
 
 def _configure_env():
     env_path = Path(".env.prod")
-    env_file = env_path.read_text().split("\n")
+    env_file = env_path.read_text(encoding="u8").split("\n")
 
     superuser_line = find_line(env_file, "SUPERUSER")
     nickname_line = find_line(env_file, "NICKNAME")
@@ -288,7 +298,7 @@ def _configure_env():
         _configure_env()
         return
 
-    env_path.write_text("\n".join(env_file))
+    env_path.write_text("\n".join(env_file), encoding="u8")
 
 
 def configure_env() -> bool:
@@ -300,17 +310,27 @@ def configure_env() -> bool:
     return True
 
 
-def main():
-    if os.path.exists(".venv"):
+def check_configured():
+    pathes = Path(".pdm-python"), Path("pdm.toml"), Path("pdm.lock"), Path(".venv")
+    configured = any(x.exists() for x in pathes)
+    if configured:
         clear()
         print("虚拟环境文件夹已存在")
         print("看起来你已经配置过 NoneBot 了")
         print()
+
         ok = input("是否要删除虚拟环境并重新配置? (Y/N) ").strip().lower()
         if ok != "y":
             print("取消配置")
-            return
-        shutil.rmtree(".venv")
+            return True
+
+    del_path(*pathes)
+    return None
+
+
+def main():
+    if check_configured():
+        return
 
     if not IS_WIN:
         clear()
