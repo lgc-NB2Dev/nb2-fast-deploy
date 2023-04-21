@@ -201,7 +201,7 @@ def setup_gocq() -> int:
         return 0
 
     return system(
-        [python_path, "-m", "nb", "plugin", "install", "nonebot-plugin-gocqhttp"]
+        [python_path, "-m", "nb_cli", "plugin", "install", "nonebot-plugin-gocqhttp"]
     )
 
 
