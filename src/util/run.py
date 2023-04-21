@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from util.const import TIMEOUT_CMD
+from const import TIMEOUT_CMD
 
 
 def main():

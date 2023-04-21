@@ -3,7 +3,8 @@ import subprocess
 import traceback
 from typing import List, Optional, Tuple, TypeVar
 
-from util.const import CLEAR_CMD, IS_WIN
+from const import CLEAR_CMD, IS_WIN
+import shutil
 
 PYPI_MIRROR_CUSTOM = "custom"
 PYPI_MIRROR_NONE = "none"
@@ -92,7 +93,7 @@ def get_win_python_path() -> str:
     print("你想要使用哪个 Python ？")
     for i, p in enumerate(founded):
         print(f"{i+1}. {p}")
-    return f'"{select(founded)}"'
+    return select(founded)
 
 
 def input_pypi_mirror() -> str:
@@ -172,6 +173,17 @@ def setup_gocq() -> int:
 
 
 def main():
+    if os.path.exists(".venv"):
+        clear()
+        print("虚拟环境文件夹已存在")
+        print("看起来你已经配置过 NoneBot 了")
+        print()
+        ok = input("是否要删除虚拟环境并重新配置? (Y/N) ").strip().lower()
+        if ok != "y":
+            print("取消配置")
+            return
+        shutil.rmtree(".venv")
+
     if not IS_WIN:
         clear()
         set_use_sudo()
