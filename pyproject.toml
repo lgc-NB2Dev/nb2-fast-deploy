@@ -1,9 +1,9 @@
 [tool.pdm]
 
 [project]
-name = "nb2-oneclick"
+name = "nb2-fast-deploy"
 version = "0.1.0"
-description = "A NoneBot2 starter pack."
+description = "A NoneBot2 fast deploy pack."
 authors = [{ name = "student_2333", email = "lgc2333@126.com" }]
 dependencies = [
     "pip>=23.0.1",
@@ -17,12 +17,20 @@ license = { text = "MIT" }
 readme = "README.md"
 
 [tool.nonebot]
+
+# NoneBot 加载的 Adapter 列表
+# 使用 "nb adapter" 命令来管理
 adapters = [
     { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
 ]
+
+# NoneBot 加载的插件名列表
+# 使用 "nb plugin" 命令来管理，或者手动增删
 plugins = []
+
+# NoneBot 加载的插件文件夹列表，会加载这些文件夹下的所有 Python 模块
 plugin_dirs = ["src/plugins"]
 
-# 要加载的前置插件（一键包提供的配置项）
+# NoneBot 要加载的前置插件（本包提供的配置项）
 # 这些插件会在 plugins 前面加载，当插件 require 报错时可以使用
 preload_plugins = []

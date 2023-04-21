@@ -15,28 +15,41 @@ driver = nonebot.get_driver()
 
 # region 自定义 Logger
 # 自动将 bot 报错记录到文件
-logger.add(
-    "logs/error.log",
-    rotation="1 MB",
-    diagnose=True,
-    level="ERROR",
-    format=default_format,
-    compression="zip",
-)
+ERROR_LOG = True
+
+if ERROR_LOG:
+    logger.add(
+        "logs/error.log",
+        rotation="1 MB",
+        diagnose=True,
+        level="ERROR",
+        format=default_format,
+        compression="zip",
+    )
 # endregion
 
 
 # region 读取项目信息
-pyproject = parse((Path(__file__).parent / "pyproject.toml").read_text(encoding="u8"))
+try:
+    pyproject = parse(
+        (Path(__file__).parent / "pyproject.toml").read_text(encoding="u8")
+    )
+    nb_config = pyproject["tool"]["nonebot"]
 
-adapters = pyproject["tool"]["nonebot"]["adapters"]
+    adapters = nb_config["adapters"]
 
-preload_plugins = set(pyproject["tool"]["nonebot"]["preload_plugins"])
+    preload_plugins = set(
+        nb_config["preload_plugins"] if "preload_plugins" in nb_config else []
+    )
 
-plugins = set(pyproject["tool"]["nonebot"]["plugins"])
-plugins.difference_update(preload_plugins)
+    plugins = set(nb_config["plugins"])
+    plugins.difference_update(preload_plugins)
 
-plugin_dirs = set(pyproject["tool"]["nonebot"]["plugin_dirs"])
+    plugin_dirs = set(nb_config["plugin_dirs"])
+
+except Exception:
+    logger.exception("读取 NoneBot 项目信息失败")
+    exit(1)
 # endregion
 
 
