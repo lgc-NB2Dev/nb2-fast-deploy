@@ -1,10 +1,12 @@
+import json
 import os
+from pathlib import Path
+import shutil
 import subprocess
 import traceback
-from typing import List, Optional, Tuple, TypeVar
+from typing import Callable, List, Optional, Tuple, TypeVar
 
 from const import CLEAR_CMD, IS_WIN
-import shutil
 
 PYPI_MIRROR_CUSTOM = "custom"
 PYPI_MIRROR_NONE = "none"
@@ -76,6 +78,21 @@ def select(list: List[T]) -> T:
             print("选择错误，请重新输入！")
 
 
+def check_python_ver(path: str = python_path) -> bool:
+    proc = subprocess.run(
+        [path, "-c", "import sys; print(int(sys.version_info >= (3, 8)))"],
+        encoding="u8",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    ret = bool(proc.stdout.strip())
+
+    if not ret:
+        print("选择的 Python 版本小于 3.8，不支持 NoneBot2")
+
+    return ret
+
+
 def get_win_python_path() -> str:
     env_path = os.environ["PATH"].split(";")
 
@@ -93,7 +110,13 @@ def get_win_python_path() -> str:
     print("你想要使用哪个 Python ？")
     for i, p in enumerate(founded):
         print(f"{i+1}. {p}")
-    return select(founded)
+
+    path = select(founded)
+    if not check_python_ver(path):
+        print("请重新选择 Python")
+        return get_win_python_path()
+
+    return path
 
 
 def input_pypi_mirror() -> str:
@@ -172,6 +195,111 @@ def setup_gocq() -> int:
     )
 
 
+def find_line(lines: List[str], prefix: str) -> int:
+    for i, x in enumerate(lines):
+        if x.startswith(prefix):
+            return i
+    raise ValueError(f'Line Prefix "{prefix}" Not Found')
+
+
+def get_input_lines(validator: Optional[Callable[[str], bool]] = None) -> List[str]:
+    lines: List[str] = []
+
+    while True:
+        inp = input("> ").strip()
+
+        if not inp:
+            break
+
+        if validator and (not validator(inp)):
+            print("输入格式有误，请重新输入")
+            continue
+
+    return lines
+
+
+def get_input(
+    validator: Optional[Callable[[str], bool]] = None,
+    allow_empty: bool = True,
+) -> str:
+    while True:
+        inp = input("> ").strip()
+
+        if (not inp) and allow_empty:
+            break
+
+        if validator and (not validator(inp)):
+            print("输入格式有误，请重新输入")
+            continue
+
+        break
+
+    return inp
+
+
+def _configure_env():
+    env_path = Path(".env.prod")
+    env_file = env_path.read_text().split("\n")
+
+    superuser_line = find_line(env_file, "SUPERUSER")
+    nickname_line = find_line(env_file, "NICKNAME")
+    # command_prefix_line = find_line(env_file, "COMMAND_PREFIX")
+    # host_line = find_line(env_file, "HOST")
+    port_line = find_line(env_file, "PORT")
+
+    print("现在让我们来配置一下 .env 的基础配置项")
+    print("如果该项输入完毕，直接回车即可开始输入下一项")
+    print("如果输错了想要重新配置，可以等到接下来的步骤完成后回来重新填写")
+
+    print("请输入机器人的超级用户 QQ (SUPERUSER)")
+    print("超级用户拥有对 Bot 的最高权限")
+    superusers = get_input_lines(lambda x: 5 <= len(x) <= 10 and x.isdigit())
+    env_file[superuser_line] = f"SUPERUSER={json.dumps(superusers)}"
+
+    print("请输入机器人的昵称 (NICKNAME)")
+    print("消息中包含机器人昵称可以代替艾特")
+    nickname = get_input_lines()
+    env_file[nickname_line] = f"NICKNAME={json.dumps(nickname, ensure_ascii=False)}"
+
+    # print("请输入机器人的命令起始字符 (COMMAND_PREFIX)")
+    # print("一般只有 on_command 匹配规则适用")
+    # print('如果有一个指令为 查询，当该配置项中有 "/" 时使用 "/查询" 才能够触发')
+    # print('不填将使用默认值：""; "/"; "#"')
+
+    # print("请输入 NoneBot 监听的 IP 或 主机名 (HOST)")
+    # print("如果要对公网开放，请改成 0.0.0.0")
+    # print("不填将使用默认值：127.0.0.1")
+
+    print("请输入 NoneBot 监听的端口 (PORT)")
+    print("请保证该端口号与连接端配置相同 或与端口映射配置相关")
+    print("使用内置 GoCQ 启动器的用户请忽略")
+    print("不填将使用 .env 文件内的默认值")
+    port = get_input(lambda x: x.isdigit() and 1 <= int(x) <= 65535)
+    if port:
+        env_file[port_line] = f"PORT={port}"
+
+    print("请检查你刚才填写的配置，不正确请输入 N 返回重新填写")
+    print(env_file[superuser_line])
+    print(env_file[nickname_line])
+    print(env_file[port_line])
+
+    ok = input("这些配置是否正确? (Y/N) ").strip().lower()
+    if ok != "y":
+        _configure_env()
+        return
+
+    env_path.write_text("\n".join(env_file))
+
+
+def configure_env() -> bool:
+    try:
+        _configure_env()
+    except Exception:
+        traceback.print_exc()
+        return False
+    return True
+
+
 def main():
     if os.path.exists(".venv"):
         clear()
@@ -186,6 +314,9 @@ def main():
 
     if not IS_WIN:
         clear()
+        if not check_python_ver():
+            return
+
         set_use_sudo()
 
     if IS_WIN:
@@ -213,6 +344,10 @@ def main():
     clear()
     if setup_gocq():
         return print("安装 GoCQ 启动器失败！")
+
+    clear()
+    if not configure_env():
+        return print("配置 .env 文件失败！")
 
     clear()
     print(
