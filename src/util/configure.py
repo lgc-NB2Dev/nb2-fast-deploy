@@ -225,6 +225,8 @@ def get_input_lines(validator: Optional[Callable[[str], bool]] = None) -> List[s
             print("输入格式有误，请重新输入")
             continue
 
+        lines.append(inp)
+
     return lines
 
 
@@ -289,12 +291,15 @@ def _configure_env():
         env_file[port_line] = f"PORT={port}"
 
     print("请检查你刚才填写的配置，不正确请输入 N 返回重新填写")
+    print()
     print(env_file[superuser_line])
     print(env_file[nickname_line])
     print(env_file[port_line])
-
+    print()
     ok = input("这些配置是否正确? (Y/N) ").strip().lower()
     if ok != "y":
+        print("请重新配置")
+        print()
         _configure_env()
         return
 
