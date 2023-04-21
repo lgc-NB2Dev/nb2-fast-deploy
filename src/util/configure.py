@@ -1,8 +1,9 @@
 import os
-import platform
+import subprocess
 import traceback
-from typing import Iterable, List, Optional, Tuple, TypeVar, Union
+from typing import List, Optional, Tuple, TypeVar
 
+from util.const import CLEAR_CMD, IS_WIN
 
 PYPI_MIRROR_CUSTOM = "custom"
 PYPI_MIRROR_NONE = "none"
@@ -16,10 +17,8 @@ PYPI_MIRRORS: List[Tuple[str, str]] = [
     ("维持现有", PYPI_MIRROR_KEEP),
 ]
 
-HEADER = "欢迎使用 NoneBot2 一键包配置向导\n按下 Ctrl+C 退出\n"
+HEADER = "欢迎使用 NoneBot2 快速部署配置向导\n按下 Ctrl+C 退出\n"
 
-is_win = "Windows" in platform.system()
-clear_cmd = "cls" if is_win else "clear"
 use_sudo = False
 no_clear = False
 pypi_mirror = PYPI_MIRROR_KEEP
@@ -32,24 +31,30 @@ def clear():
     if no_clear:
         return
 
-    os.system(clear_cmd)
+    os.system(CLEAR_CMD)
     print(HEADER)
 
 
-def system(cmd: Union[str, Iterable[str]]) -> int:
-    if isinstance(cmd, str):
-        cmd = [cmd]
-
+def system(cmd: List[str]) -> int:
     if use_sudo:
-        cmd = [f"sudo {x}" for x in cmd]
+        cmd = cmd.copy()
+        cmd.insert(0, "sudo")
 
+    formatted = " ".join([(f'"{x}"' if " " in x else x) for x in cmd])
+    print(f"> {formatted}")
+
+    res = subprocess.run(cmd).returncode
+    if res:
+        print(f"× 返回代码 {res}")
+
+    return res
+
+
+def systems(cmd: List[List[str]]) -> int:
     for c in cmd:
-        print(f"> {c}")
-        res = os.system(c)
+        res = system(c)
         if res:
-            print(f"× 返回代码 {res}")
             return res
-
     return 0
 
 
@@ -115,40 +120,44 @@ def configure_pip_mirror() -> int:
     if pypi_mirror == PYPI_MIRROR_KEEP:
         return 0
 
+    # ignore err
     if pypi_mirror:
         return system(
-            f'{python_path} -m pip config set global.index-url "{pypi_mirror}"'
+            [python_path, "-m", "pip", "config", "set", "global.index-url", pypi_mirror]
         )
 
-    system(f"{python_path} -m pip config unset global.index-url")
+    system([python_path, "-m", "pip", "config", "unset", "global.index-url"])
     return 0
 
 
 def install_pre_reqs() -> int:
-    return system(f"{python_path} -m pip install pdm nb-cli -U")
+    return system([python_path, "-m", "pip", "install", "pip", "pdm", "nb-cli", "-U"])
 
 
 def configure_proj() -> int:
     # 如果有更好的方法欢迎提供
     venv_path = os.path.abspath(
-        ".venv/Scripts/python.exe" if is_win else ".venv/bin/python"
+        ".venv/Scripts/python.exe" if IS_WIN else ".venv/bin/python"
     )
     cmd = [
-        "pdm config -l python.use_venv True",
-        "pdm config -l venv.in_project True",
-        f'pdm use "{python_path}"',
-        "pdm venv create --force",
-        f'pdm use "{venv_path}"',
-        "pdm install --no-self",
+        ["pdm", "config", "-l", "python.use_venv", "True"],
+        ["pdm", "config", "-l", "venv.in_project", "True"],
+        ["pdm", "use", python_path],
+        ["pdm", "venv", "create", "--force"],
+        ["pdm", "use", venv_path],
+        ["pdm", "install", "--no-self"],
     ]
 
     if not pypi_mirror:
-        cmd.insert(0, "pdm config -l -d pypi.url")
+        cmd.insert(0, ["pdm", "config", "-l", "-d", "pypi.url"])
     elif pypi_mirror != PYPI_MIRROR_KEEP:
-        cmd.insert(0, f"pdm config -l pypi.url {pypi_mirror}")
+        cmd.insert(0, ["pdm", "config", "-l", "pypi.url", pypi_mirror])
 
-    cmd = [f"{python_path} -m {x}" for x in cmd]
-    return system(cmd)
+    for i in cmd:
+        i.insert(0, "-m")
+        i.insert(0, python_path)
+
+    return systems(cmd)
 
 
 def setup_gocq() -> int:
@@ -157,15 +166,17 @@ def setup_gocq() -> int:
     if ok != "y":
         return 0
 
-    return system(f"{python_path} -m pdm run nb plugin install nonebot-plugin-gocqhttp")
+    return system(
+        [python_path, "-m", "nb", "plugin", "install", "nonebot-plugin-gocqhttp"]
+    )
 
 
 def main():
-    if not is_win:
+    if not IS_WIN:
         clear()
         set_use_sudo()
 
-    if is_win:
+    if IS_WIN:
         clear()
         global python_path
         python_path = get_win_python_path()
