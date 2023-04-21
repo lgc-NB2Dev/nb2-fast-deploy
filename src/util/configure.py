@@ -18,7 +18,7 @@ PYPI_MIRRORS: List[Tuple[str, str]] = [
     ("维持现有", PYPI_MIRROR_KEEP),
 ]
 
-HEADER = "欢迎使用 NoneBot2 快速部署配置向导\n按下 Ctrl+C 退出\n"
+HEADER = "欢迎使用 NoneBot2 快速部署配置向导\n取消配置请按下 Ctrl+C\n"
 
 use_sudo = False
 no_clear = False
