@@ -47,7 +47,7 @@ def system(cmd: Union[str, Iterable[str]]) -> int:
         print(f"> {c}")
         res = os.system(c)
         if res:
-            print(f"! 返回代码 {res} ❌")
+            print(f"× 返回代码 {res}")
             return res
 
     return 0
@@ -193,7 +193,7 @@ def main():
 
     clear()
     print(
-        "恭喜！你的 NoneBot2 已配置完毕 🎉\n"
+        "恭喜！你的 NoneBot2 已配置完毕\n"
         "\n"
         "接下来，你可以：\n"
         "- 打开 .env.prod 文件，编辑 NoneBot2 的配置\n"
@@ -208,7 +208,7 @@ def main():
         "我的个人交流群：1105946125\n"
         "NoneBot 官方群：768887710"
         "\n"
-        "祝使用愉快 ❤️"
+        "祝使用愉快 ♡"
     )
 
 
