@@ -320,11 +320,11 @@ def check_configured():
     configured = any(x.exists() for x in pathes)
     if configured:
         clear()
-        print("虚拟环境文件夹已存在")
+        print("虚拟环境文件夹 或 环境配置 已存在")
         print("看起来你已经配置过 NoneBot 了")
         print()
 
-        ok = input("是否要删除虚拟环境并重新配置? (Y/N) ").strip().lower()
+        ok = input("是否要删除现有环境并重新配置？\n如果之前配置失败请按 N 继续 (Y/N) ").strip().lower()
         if ok != "y":
             print("取消配置")
             return True
