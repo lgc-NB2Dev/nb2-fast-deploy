@@ -1,1 +1,1 @@
-pdm run python src/util/run.py
+python src/util/run.py

@@ -6,7 +6,7 @@ import traceback
 from pathlib import Path
 from typing import Callable, List, Optional, Tuple, TypeVar, Union
 
-from const import CLEAR_CMD, IS_WIN
+from utils import CLEAR_CMD, ENVIRON_PATHS, IS_WIN
 
 PYPI_MIRROR_CUSTOM = "custom"
 PYPI_MIRROR_NONE = "none"
@@ -263,25 +263,30 @@ def _configure_env():
     print("如果该项输入完毕，直接回车即可开始输入下一项")
     print("如果输错了想要重新配置，可以等到接下来的步骤完成后回来重新填写")
 
+    print()
     print("请输入机器人的超级用户 QQ (SUPERUSER)")
     print("超级用户拥有对 Bot 的最高权限")
     superusers = get_input_lines(lambda x: 5 <= len(x) <= 10 and x.isdigit())
     env_file[superuser_line] = f"SUPERUSER={json.dumps(superusers)}"
 
+    print()
     print("请输入机器人的昵称 (NICKNAME)")
     print("消息中包含机器人昵称可以代替艾特")
     nickname = get_input_lines()
     env_file[nickname_line] = f"NICKNAME={json.dumps(nickname, ensure_ascii=False)}"
 
+    # print()
     # print("请输入机器人的命令起始字符 (COMMAND_PREFIX)")
     # print("一般只有 on_command 匹配规则适用")
     # print('如果有一个指令为 查询，当该配置项中有 "/" 时使用 "/查询" 才能够触发')
     # print('不填将使用默认值：""; "/"; "#"')
 
+    # print()
     # print("请输入 NoneBot 监听的 IP 或 主机名 (HOST)")
     # print("如果要对公网开放，请改成 0.0.0.0")
     # print("不填将使用默认值：127.0.0.1")
 
+    print()
     print("请输入 NoneBot 监听的端口 (PORT)")
     print("请保证该端口号与连接端配置相同 或与端口映射配置相关")
     print("使用内置 GoCQ 启动器的用户请忽略")
@@ -290,6 +295,7 @@ def _configure_env():
     if port:
         env_file[port_line] = f"PORT={port}"
 
+    print()
     print("请检查你刚才填写的配置，不正确请输入 N 返回重新填写")
     print()
     print(env_file[superuser_line])
@@ -316,20 +322,18 @@ def configure_env() -> bool:
 
 
 def check_configured():
-    pathes = Path(".pdm-python"), Path("pdm.toml"), Path("pdm.lock"), Path(".venv")
-    configured = any(x.exists() for x in pathes)
-    if configured:
+    if any(x.exists() for x in ENVIRON_PATHS):
         clear()
         print("虚拟环境文件夹 或 环境配置 已存在")
         print("看起来你已经配置过 NoneBot 了")
         print()
 
-        ok = input("是否要删除现有环境并重新配置？\n如果之前配置失败请按 N 继续 (Y/N) ").strip().lower()
+        ok = input("是否要删除现有环境并重新配置？\n如果之前配置失败请按 Y 继续 (Y/N) ").strip().lower()
         if ok != "y":
             print("取消配置")
             return True
 
-    del_path(*pathes)
+    del_path(*ENVIRON_PATHS)
     return None
 
 

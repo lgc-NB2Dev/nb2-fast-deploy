@@ -1,10 +1,16 @@
 import os
 import subprocess
 
-from const import TIMEOUT_CMD
+from utils import ENVIRON_PATHS, TIMEOUT_CMD
 
 
 def main():
+    if not all(x.exists() for x in ENVIRON_PATHS):
+        print("看起来你还没有配置过 NoneBot")
+        print("请先运行 #配置向导.bat 来配置环境")
+        input()
+        return
+
     while True:
         print("启动 NoneBot ...\n")
 
