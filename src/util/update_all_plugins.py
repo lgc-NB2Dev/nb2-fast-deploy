@@ -36,9 +36,13 @@ def update(name: str) -> bool:
 
 def main():
     pyproject = parse((Path.cwd() / "pyproject.toml").read_text(encoding="u8"))
-    plugins = set()
-    plugins.update(pyproject["tool"]["nonebot"]["preload_plugins"])  # type: ignore
-    plugins.update(pyproject["tool"]["nonebot"]["plugins"])  # type: ignore
+    nb_config = pyproject["tool"]["nonebot"]
+
+    preload_plugins = set(
+        nb_config["preload_plugins"] if "preload_plugins" in nb_config else []
+    )
+    plugins = set(nb_config["plugins"])
+    plugins.difference_update(preload_plugins)
 
     if not plugins:
         print("你还没有安装过商店插件，没有需要更新的插件")
