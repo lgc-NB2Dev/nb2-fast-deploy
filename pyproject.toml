@@ -9,8 +9,9 @@ dependencies = [
     "pip>=23.0.1",
     "setuptools>=67.6.0",
     "nb-cli>=1.0.5",
-    "nonebot2[fastapi]>=2.0.0rc3",
+    "nonebot2[fastapi]>=2.0.0rc4",
     "nonebot-adapter-onebot>=2.2.2",
+    "nonebot-plugin-guild-patch>=0.2.3",
 ]
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -33,4 +34,4 @@ plugin_dirs = ["src/plugins"]
 
 # NoneBot 要加载的前置插件（本包提供的配置项）
 # 这些插件会在 plugins 前面加载，当插件 require 报错时可以使用
-preload_plugins = []
+preload_plugins = ["nonebot_plugin_guild_patch"]
