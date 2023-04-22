@@ -6,7 +6,6 @@ from tomlkit import parse
 
 
 def update(name: str) -> bool:
-    print(f"正在更新插件 {name}")
     proc = subprocess.run(
         ["pip", "install", name, "-U"],
         shell=True,
@@ -57,13 +56,16 @@ def main():
     )
     input()
 
-    print(f"已发现 {len(plugins)} 个插件，准备更新")
+    total_num = len(plugins)
+    print(f"已发现 {total_num} 个插件，准备更新")
     print()
 
     success = []
     fail = []
-    for pl in plugins:
+    for i, pl in enumerate(plugins):
         pl = pl.replace("_", "-")
+        print(f"正在更新插件 {pl} ({i + 1}/{total_num})")
+
         if update(pl):
             success.append(pl)
         else:
