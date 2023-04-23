@@ -22,7 +22,7 @@ PYPI_MIRRORS: List[Tuple[str, str]] = [
 
 HEADER = "欢迎使用 NoneBot2 快速部署配置向导\n取消配置请按下 Ctrl+C\n"
 
-use_sudo = False
+# use_sudo = False
 no_clear = False
 pypi_mirror = PYPI_MIRROR_KEEP
 python_path = "python3"
@@ -39,9 +39,9 @@ def clear():
 
 
 def system(cmd: List[str]) -> int:
-    if use_sudo:
-        cmd = cmd.copy()
-        cmd.insert(0, "sudo")
+    # if use_sudo:
+    #     cmd = cmd.copy()
+    #     cmd.insert(0, "sudo")
 
     formatted = " ".join([(f'"{x}"' if " " in x else x) for x in cmd])
     print(f"> {formatted}")
@@ -61,11 +61,21 @@ def systems(cmd: List[List[str]]) -> int:
     return 0
 
 
-def set_use_sudo():
-    ok = input('接下来的操作是否要使用 "sudo"? (Y/N) ').strip().lower()
-    if ok == "y":
-        global use_sudo
-        use_sudo = True
+def check(prompt: str) -> bool:
+    while True:
+        ok = input(prompt).strip().lower()
+        if ok == "y":
+            return True
+        if ok == "n":
+            return False
+        print("输入错误！请重新输入")
+
+
+# def set_use_sudo():
+#     ok = check('接下来的操作是否要使用 "sudo"? (Y/N) ')
+#     if ok:
+#         global use_sudo
+#         use_sudo = True
 
 
 def select(list: List[T]) -> T:
@@ -122,8 +132,8 @@ def get_win_python_path() -> str:
 def input_pypi_mirror() -> str:
     while True:
         url = input("请输入你要使用的镜像源地址：").strip()
-        ok = input("请检查你输入的 URL 是否正确 (Y/N) ").strip().lower()
-        if ok == "y":
+        ok = check("请检查你输入的 URL 是否正确 (Y/N) ")
+        if ok:
             return url
 
 
@@ -195,9 +205,9 @@ def configure_proj() -> int:
 
 
 def setup_gocq() -> int:
-    ok = input("你想要在 NoneBot 中内置 GoCQ 启动器吗？(Y/N) ").strip().lower()
+    ok = check("你想要在 NoneBot 中内置 GoCQ 启动器吗？(Y/N) ")
 
-    if ok != "y":
+    if not ok:
         return 0
 
     return system(
@@ -302,8 +312,8 @@ def _configure_env():
     print(env_file[nickname_line])
     print(env_file[port_line])
     print()
-    ok = input("这些配置是否正确? (Y/N) ").strip().lower()
-    if ok != "y":
+    ok = check("这些配置是否正确? (Y/N) ")
+    if not ok:
         print("请重新配置")
         print()
         _configure_env()
@@ -328,8 +338,8 @@ def check_configured():
         print("看起来你已经配置过 NoneBot 了")
         print()
 
-        ok = input("是否要删除现有环境并重新配置？\n如果之前配置失败请按 Y 继续 (Y/N) ").strip().lower()
-        if ok != "y":
+        ok = check("是否要删除现有环境并重新配置？\n如果之前配置失败请按 Y 继续 (Y/N) ")
+        if not ok:
             print("取消配置")
             return True
 
@@ -346,7 +356,7 @@ def main():
         if not check_python_ver():
             return
 
-        set_use_sudo()
+        # set_use_sudo()
 
     if IS_WIN:
         clear()
