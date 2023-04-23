@@ -16,11 +16,7 @@
    git clone --depth=1 -b linux https://github.com/lgc-NB2Dev/nb2-fast-deploy nb2
    cd nb2
    ```
-2. 赋予快速部署包内脚本可执行权限
-   ```bash
-   chmod 777 ./_*
-   ```
-3. 运行配置环境脚本
+2. 运行配置环境脚本
    ```bash
    ./_configure
    ```
