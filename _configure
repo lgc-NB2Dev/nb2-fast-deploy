@@ -1,1 +1,2 @@
+#!/usr/bin/env bash
 python src/util/configure.py
