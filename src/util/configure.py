@@ -403,7 +403,7 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        pass
-    except:  # noqa: E722
+        exit()
+    except Exception:
         traceback.print_exc()
     input("\n\n请按回车键退出")
