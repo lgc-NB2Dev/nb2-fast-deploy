@@ -7,6 +7,7 @@
 ## 要求
 
 - 默认 Python `>=3.8` ( `python3 -V` )
+- `pip` ( `sudo apt install pip` )
 
 ## 如何使用
 
