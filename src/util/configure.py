@@ -22,7 +22,7 @@ PYPI_MIRRORS: List[Tuple[str, str]] = [
 
 HEADER = "欢迎使用 NoneBot2 快速部署配置向导\n取消配置请按下 Ctrl+C\n"
 
-use_sudo = False
+# use_sudo = False
 no_clear = False
 pypi_mirror = PYPI_MIRROR_KEEP
 python_path = "python3"
@@ -39,9 +39,9 @@ def clear():
 
 
 def system(cmd: List[str]) -> int:
-    if use_sudo:
-        cmd = cmd.copy()
-        cmd.insert(0, "sudo")
+    # if use_sudo:
+    #     cmd = cmd.copy()
+    #     cmd.insert(0, "sudo")
 
     formatted = " ".join([(f'"{x}"' if " " in x else x) for x in cmd])
     print(f"> {formatted}")
@@ -71,11 +71,11 @@ def check(prompt: str) -> bool:
         print("输入错误！请重新输入")
 
 
-def set_use_sudo():
-    ok = check('接下来的操作是否要使用 "sudo"? (Y/N) ')
-    if ok:
-        global use_sudo
-        use_sudo = True
+# def set_use_sudo():
+#     ok = check('接下来的操作是否要使用 "sudo"? (Y/N) ')
+#     if ok:
+#         global use_sudo
+#         use_sudo = True
 
 
 def select(list: List[T]) -> T:
@@ -356,7 +356,7 @@ def main():
         if not check_python_ver():
             return
 
-        set_use_sudo()
+        # set_use_sudo()
 
     if IS_WIN:
         clear()

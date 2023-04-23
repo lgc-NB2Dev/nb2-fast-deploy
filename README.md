@@ -11,6 +11,8 @@
 
 ## 如何使用
 
+命令权限不够请加 `sudo`
+
 1. 克隆存储库到本地（ `nb2` 可以换成你喜欢的文件夹名字）
    ```bash
    git clone --depth=1 -b linux https://github.com/lgc-NB2Dev/nb2-fast-deploy nb2
@@ -22,7 +24,7 @@
    ```
 3. 运行配置环境脚本
    ```bash
-   ./_configure
+   sudo ./_configure
    ```
 
 ### 部署包脚本
@@ -33,7 +35,7 @@
   ```
 - 更新全部插件
   ```bash
-  ./_upd-plugin
+  sudo ./_upd-plugin
   ```
 - 打印虚拟环境进入方式
   ```bash
