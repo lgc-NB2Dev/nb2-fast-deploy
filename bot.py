@@ -38,9 +38,7 @@ try:
 
     adapters = nb_config["adapters"]
 
-    preload_plugins = set(
-        nb_config["preload_plugins"] if "preload_plugins" in nb_config else []
-    )
+    preload_plugins = set(nb_config.get("preload_plugins", []))
 
     plugins = set(nb_config["plugins"])
     plugins.difference_update(preload_plugins)

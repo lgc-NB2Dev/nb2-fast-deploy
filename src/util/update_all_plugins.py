@@ -1,3 +1,5 @@
+# pyright: reportGeneralTypeIssues=false
+
 import subprocess
 import traceback
 from pathlib import Path
@@ -37,11 +39,9 @@ def main():
     pyproject = parse((Path.cwd() / "pyproject.toml").read_text(encoding="u8"))
     nb_config = pyproject["tool"]["nonebot"]
 
-    preload_plugins = set(
-        nb_config["preload_plugins"] if "preload_plugins" in nb_config else []
-    )
+    preload_plugins = set(nb_config.get("preload_plugins", []))
     plugins = set(nb_config["plugins"])
-    plugins.difference_update(preload_plugins)
+    plugins |= preload_plugins
 
     if not plugins:
         print("你还没有安装过商店插件，没有需要更新的插件")
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        pass
-    except:  # noqa: E722
+        exit()
+    except Exception:
         traceback.print_exc()
     input("\n\n请按回车键退出")
