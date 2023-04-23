@@ -10,7 +10,6 @@ from tomlkit import parse
 def update(name: str) -> bool:
     proc = subprocess.run(
         ["pip", "install", name, "-U"],
-        shell=True,
         capture_output=True,
         encoding="u8",
     )
