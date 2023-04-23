@@ -16,7 +16,11 @@
    git clone --depth=1 -b linux https://github.com/lgc-NB2Dev/nb2-fast-deploy nb2
    cd nb2
    ```
-2. 运行配置环境脚本
+2. (可选) 删掉 `.git` 文件夹
+   ```bash
+   rm -rf .git/
+   ```
+3. 运行配置环境脚本
    ```bash
    ./_configure
    ```
