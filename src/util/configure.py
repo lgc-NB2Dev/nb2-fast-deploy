@@ -263,7 +263,7 @@ def _configure_env():
     env_path = Path(".env.prod")
     env_file = env_path.read_text(encoding="u8").split("\n")
 
-    superuser_line = find_line(env_file, "SUPERUSER")
+    superuser_line = find_line(env_file, "SUPERUSERS")
     nickname_line = find_line(env_file, "NICKNAME")
     # command_prefix_line = find_line(env_file, "COMMAND_PREFIX")
     # host_line = find_line(env_file, "HOST")
@@ -277,7 +277,7 @@ def _configure_env():
     print("请输入机器人的超级用户 QQ (SUPERUSER)")
     print("超级用户拥有对 Bot 的最高权限")
     superusers = get_input_lines(lambda x: 5 <= len(x) <= 10 and x.isdigit())
-    env_file[superuser_line] = f"SUPERUSER={json.dumps(superusers)}"
+    env_file[superuser_line] = f"SUPERUSERS={json.dumps(superusers)}"
 
     print()
     print("请输入机器人的昵称 (NICKNAME)")
