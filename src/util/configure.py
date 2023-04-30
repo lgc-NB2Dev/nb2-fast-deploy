@@ -274,7 +274,7 @@ def _configure_env():
     print("如果输错了想要重新配置，可以等到接下来的步骤完成后回来重新填写")
 
     print()
-    print("请输入机器人的超级用户 QQ (SUPERUSER)")
+    print("请输入机器人的超级用户 QQ (SUPERUSERS)")
     print("超级用户拥有对 Bot 的最高权限")
     superusers = get_input_lines(lambda x: 5 <= len(x) <= 10 and x.isdigit())
     env_file[superuser_line] = f"SUPERUSERS={json.dumps(superusers)}"
