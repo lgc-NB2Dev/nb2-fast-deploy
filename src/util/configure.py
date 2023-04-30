@@ -277,7 +277,7 @@ def _configure_env():
     print("请输入机器人的超级用户 QQ (SUPERUSERS)")
     print("超级用户拥有对 Bot 的最高权限")
     superusers = get_input_lines(lambda x: 5 <= len(x) <= 10 and x.isdigit())
-    env_file[superuser_line] = f"SUPERUSER={json.dumps(superusers)}"
+    env_file[superuser_line] = f"SUPERUSERS={json.dumps(superusers)}"
 
     print()
     print("请输入机器人的昵称 (NICKNAME)")
