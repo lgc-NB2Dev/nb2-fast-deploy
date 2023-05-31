@@ -13,8 +13,8 @@ PYPI_MIRROR_NONE = "none"
 PYPI_MIRROR_KEEP = "keep"
 PYPI_MIRRORS: List[Tuple[str, str]] = [
     ("清华", "https://pypi.tuna.tsinghua.edu.cn/simple"),
-    ("豆瓣", "http://pypi.douban.com/simple/"),
-    ("阿里", "http://mirrors.aliyun.com/pypi/simple/"),
+    ("豆瓣", "https://pypi.douban.com/simple/"),
+    ("阿里", "https://mirrors.aliyun.com/pypi/simple/"),
     ("自定义", PYPI_MIRROR_CUSTOM),
     ("不使用", PYPI_MIRROR_NONE),
     ("维持现有", PYPI_MIRROR_KEEP),
