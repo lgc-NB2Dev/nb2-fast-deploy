@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-# pyright: reportGeneralTypeIssues=false
 
 import importlib
 from pathlib import Path
+from typing import Dict, List, Set, cast
 
 import nonebot
 from nonebot.log import default_format, logger
 from tomlkit import parse
-
 
 nonebot.init()
 driver = nonebot.get_driver()
@@ -24,26 +23,27 @@ if ERROR_LOG:
         diagnose=True,
         level="ERROR",
         format=default_format,
-        compression="zip",
+        # compression="zip",
     )
 # endregion
 
 
 # region 读取项目信息
 try:
-    pyproject = parse(
-        (Path(__file__).parent / "pyproject.toml").read_text(encoding="u8")
+    pyproject = cast(
+        dict,
+        parse((Path(__file__).parent / "pyproject.toml").read_text(encoding="u8")),
     )
     nb_config = pyproject["tool"]["nonebot"]
 
-    adapters = nb_config["adapters"]
+    adapters: List[Dict] = nb_config["adapters"]
 
-    preload_plugins = set(nb_config.get("preload_plugins", []))
+    preload_plugins: List[str] = nb_config.get("preload_plugins", [])
 
-    plugins = set(nb_config["plugins"])
+    plugins: Set[str] = set(nb_config["plugins"])
     plugins.difference_update(preload_plugins)
 
-    plugin_dirs = set(nb_config["plugin_dirs"])
+    plugin_dirs: Set[str] = set(nb_config["plugin_dirs"])
 
 except Exception:
     logger.exception("读取 NoneBot 项目信息失败")
