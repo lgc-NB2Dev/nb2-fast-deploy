@@ -1,5 +1,7 @@
 <!-- markdownlint-disable MD031 -->
 
+# 本仓库暂停开发，请移步 [nb-cli-plugin-bootstrap](https://github.com/lgc-NB2Dev/nb-cli-plugin-bootstrap)
+
 # NoneBot2 快速部署包
 
 [![wakatime](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/11088243-4834-4b8d-91c3-5b765bd053d4.svg)](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/11088243-4834-4b8d-91c3-5b765bd053d4)
